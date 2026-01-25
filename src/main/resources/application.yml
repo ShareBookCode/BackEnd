@@ -1,0 +1,18 @@
+server:
+  port: 8081
+
+spring:
+  config:
+    import: optional:file:.env[.properties],optional:file:system/.env[.properties]
+  datasource:
+    url: jdbc:postgresql://${HOST}/${POSTGRES_DB}?currentSchema=${POSTGRES_SCHEMA}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    change-log: classpath:liquibase/db.changelog.yaml
+    enabled: true
+    default-schema: sharebookschema
+  jpa:
+    hibernate:
+      ddl-auto: none
