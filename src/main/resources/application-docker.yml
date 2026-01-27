@@ -1,0 +1,8 @@
+spring:
+  config:
+    import: optional:file:.env.docker[.properties]
+  datasource:
+    url: jdbc:postgresql://postgres:5432/${POSTGRES_DB}?currentSchema=${POSTGRES_SCHEMA}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
