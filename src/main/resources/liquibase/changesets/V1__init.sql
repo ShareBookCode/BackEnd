@@ -19,8 +19,9 @@ CREATE TABLE IF NOT EXISTS users
     phone_number        VARCHAR(30),
     city_id             VARCHAR(36),
     created_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    FOREIGN KEY (city_id) REFERENCES cities(id) ON DELETE SET NULL
+    updated_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_user_city FOREIGN KEY (city_id)
+        REFERENCES cities(id) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS books
@@ -29,6 +30,9 @@ CREATE TABLE IF NOT EXISTS books
     name    VARCHAR(255) NOT NULL,
     address VARCHAR(500),
     author  VARCHAR(255),
-    image   VARCHAR(500)
+    image   VARCHAR(500),
+    user_owner VARCHAR(36) NOT NULL,
+    CONSTRAINT fk_user_city FOREIGN KEY (user_owner)
+        REFERENCES users(id) ON DELETE CASCADE
 );
 

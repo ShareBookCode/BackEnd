@@ -25,6 +25,13 @@ public class Book {
     @Column(name = "image", length = 500)
     private String image;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "user_owner",
+            nullable = false,
+            foreignKey = @ForeignKey(name = "fk_book_owner")
+    )
+    private User owner;
 
     public Book(String name, String address, String author, String image) {
         this.name = name;

@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 @Getter @Setter @NoArgsConstructor
@@ -44,8 +47,14 @@ public class User {
     private LocalDateTime updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name ="city_id", foreignKey = @ForeignKey(name = "fk_user_city"))
+    @JoinColumn(
+            name ="city_id",
+            nullable = true, //город не обязателен
+            foreignKey = @ForeignKey(name = "fk_user_city"))
     private City city;
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Book> books = new ArrayList<>();
 
     public User(String username, String email, String firstName, String lastName){
         this.username = username;
